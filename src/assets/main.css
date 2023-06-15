@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.boton{
+		@apply
+		flex justify-center pt-1 w-20 h-20  border-4 border-black hover:cursor-grab rounded-xl
+	}
+}
