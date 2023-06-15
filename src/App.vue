@@ -1,4 +1,4 @@
-<script>
+<script setup>
 import { ref } from 'vue';
 
 const jugadorActual = ref("X");
@@ -32,17 +32,21 @@ function Tirar(celda) {
 		return;
 	}
 	if (tablero.value[celda] != "") {
-		return ;
+		return;
 	}
 	tablero.value[celda] = jugadorActual.value;
-	if (jugadorActual.value=="X")
-	{
-		jugadorActual.value="O"
+	if (jugadorActual.value == "X") {
+		jugadorActual.value = "O"
 	}
-	else
-	{
-		jugadorActual.value="X"
+	else {
+		jugadorActual.value = "X"
 	}
+}
+
+function Reiniciar()
+{
+	tablero.value = ["", "", "", "", "", "", "", "", ""]
+	jugadorActual.value = "X"
 }
 </script>
 
@@ -58,25 +62,25 @@ function Tirar(celda) {
 					<tr>
 						<!-- Primera celda -->
 						<td>
-							<div @click="Tirar(0)" class="boton"> </div>
+							<div @click="Tirar(0)" class="boton"> {{ tablero[0] }}</div>
 						</td>
 						<td>
-							<div @click="Tirar(1)" class="boton"> </div>
+							<div @click="Tirar(1)" class="boton"> {{ tablero[1] }}</div>
 						</td>
 						<td>
-							<div @click="Tirar(2)"  class="boton"> </div>
+							<div @click="Tirar(2)" class="boton"> {{ tablero[2] }}</div>
 						</td>
 					</tr>
 					<!-- Segundo Renglon-->
 					<tr>
 						<td>
-							<div @click="Tirar(3)"  class="boton"> </div>
+							<div @click="Tirar(3)" class="boton"> {{ tablero[3] }}</div>
 						</td>
 						<td>
-							<div @click="Tirar(4)" class="boton"> </div>
+							<div @click="Tirar(4)" class="boton">{{ tablero[4] }} </div>
 						</td>
 						<td>
-							<div @click="Tirar(5)" class="boton"> </div>
+							<div @click="Tirar(5)" class="boton">{{ tablero[5] }} </div>
 						</td>
 
 					</tr>
@@ -84,41 +88,25 @@ function Tirar(celda) {
 					<tr>
 						<!-- Primera celda -->
 						<td>
-							<div @click="Tirar(6)" class="boton"> </div>
+							<div @click="Tirar(6)" class="boton"> {{ tablero[6] }}</div>
 						</td>
 						<td>
-							<div @click="Tirar(7)" class="boton"> </div>
+							<div @click="Tirar(7)" class="boton">{{ tablero[7] }} </div>
 						</td>
 						<td>
-							<div @click="Tirar(8)" class="boton"> </div>
+							<div @click="Tirar(8)" class="boton">{{ tablero[8] }} </div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<h2 id="turnoJugador" class="card-title">Turno de X !</h2>
-			<div class="alert flex justify-center">
-				<span>{{ "Equipo " }}</span>
+			<div class="flex flex-col">
+				<h2 v-if="!Ganador()" id="turnoJugador" class="card-title">Turno de {{ jugadorActual }} !</h2>
+				<div v-if="Ganador()">
+				<span> Ganador {{ Ganador() }}</span>
 			</div>
-			<button id="botonReinicio" class="btn join-item w-18">Empezar de nuevo!</button>
+			</div>
+
+			<button @click="Reiniciar()" id="botonReinicio" class="border-4 border-black rounded-xl px-2">Empezar de nuevo!</button>
 		</div>
 	</div>
 </template>
-
-<style>
-.cell {
-	width: 75px;
-	height: 75px;
-	box-shadow: 0 0 0 2px;
-	line-height: 75px;
-	font-size: 50px;
-	cursor: grab;
-}
-
-#Titulo {
-	font-family: "Permanent Marker", cursive;
-	font-size: xx-large;
-}
-
-#Contenedordeljuego {
-	font-family: "Permanent Marker", cursive;
-}</style>
