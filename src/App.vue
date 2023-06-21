@@ -2,6 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { ref } from 'vue';
 
+
 const contx = ref(0);
 const conto = ref(0);
 const jugador1 = ref("");
@@ -20,6 +21,7 @@ const ManerasGanar = [
 ];
 const nombresBloqueados = ref(false);
 const juegoIniciado = ref(false);
+const ganador = ref("");
 
 function ResetearContadores() {
   contx.value = 0;
@@ -33,6 +35,7 @@ function Ganador() {
       continue;
     }
     if (tablero.value[a] === tablero.value[b] && tablero.value[a] === tablero.value[c]) {
+      ganador.value = tablero.value[a];
       return tablero.value[a];
     }
   }
@@ -72,6 +75,7 @@ function Tirar(celda) {
 function Reiniciar() {
   tablero.value = ["", "", "", "", "", "", "", "", ""];
   jugadorActual.value = "X";
+  ganador.value = "";
   juegoIniciado.value = false;
 }
 
@@ -151,15 +155,16 @@ function cambiarNombres() {
         <h2 v-if="!Ganador() && !juegoIniciado" id="turnoJugador" class="card-title">Turno de {{ jugadorActual }}!</h2>
 
         <div v-if="Ganador()">
-          <span>Ganador: {{ Ganador() }}</span>
+          <span>Ganador: {{ ganador }}</span>
         </div>
 
-        <div>Rondas ganadas de X: {{ contx }}</div>
-        <div>Rondas ganadas de O: {{ conto }}</div>
+        <div>Rondas ganadas de {{ jugador1 }}: {{ contx }}</div>
+        <div>Rondas ganadas de {{ jugador2 }}: {{ conto }}</div>
       </div>
 
       <button @click="ResetearContadores" id="botonReset" class="border-4 border-black rounded-xl px-2">Resetear Contadores</button>
 
     </div>
   </div>
+
 </template>
