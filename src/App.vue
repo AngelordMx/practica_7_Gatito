@@ -1,8 +1,10 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css';
 import { ref } from 'vue';
+// Importa las dependencias necesarias
+import Vue from 'vue';
 
-
+import ComponenteInputs from './ComponenteInputs.vue'
 const contx = ref(0);
 const conto = ref(0);
 const jugador1 = ref("");
@@ -52,11 +54,6 @@ function Contadores() {
 }
 
 function Tirar(celda) {
-  if (jugador1.value === "" || jugador2.value === "") {
-    alert("Por favor, ingresa los nombres de los jugadores antes de comenzar el juego.");
-    return;
-  }
-  
   if (Ganador() !== "") {
     return;
   }
@@ -99,8 +96,8 @@ function cambiarNombres() {
 
       <!-- Componente para ingresar los nombres de los jugadores -->
       <div>
-        <input v-model="jugador1" class="form-control" placeholder="Nombre del Jugador 1" :disabled="nombresBloqueados">
-        <input v-model="jugador2" class="form-control" placeholder="Nombre del Jugador 2" :disabled="nombresBloqueados">
+        <input  class="form-control" placeholder="Nombre del Jugador 1" :disabled="nombresBloqueados">
+        <input  class="form-control" placeholder="Nombre del Jugador 2" :disabled="nombresBloqueados">
       </div>
 
       <button @click="bloquearNombres" id="botonAceptar" class="border-4 border-black rounded-xl px-2">Aceptar</button>
