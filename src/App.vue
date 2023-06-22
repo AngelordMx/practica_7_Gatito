@@ -1,14 +1,12 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css';
 import { ref } from 'vue';
+import Nombres from './components/Nombres.vue'
 // Importa las dependencias necesarias
-import Vue from 'vue';
 
-import ComponenteInputs from './ComponenteInputs.vue'
 const contx = ref(0);
 const conto = ref(0);
-const jugador1 = ref("");
-const jugador2 = ref("");
+
 const jugadorActual = ref("X");
 const tablero = ref(["", "", "", "", "", "", "", "", ""]);
 const ManerasGanar = [
@@ -21,7 +19,6 @@ const ManerasGanar = [
   [0, 4, 8],
   [2, 4, 6],
 ];
-const nombresBloqueados = ref(false);
 const juegoIniciado = ref(false);
 const ganador = ref("");
 
@@ -76,17 +73,9 @@ function Reiniciar() {
   juegoIniciado.value = false;
 }
 
-function bloquearNombres() {
-  nombresBloqueados.value = true;
-  juegoIniciado.value = true;
-}
 
-function cambiarNombres() {
-  if (juegoIniciado.value) {
-    return;
-  }
-  nombresBloqueados.value = false;
-}
+
+
 </script>
 
 <template>
@@ -96,12 +85,8 @@ function cambiarNombres() {
 
       <!-- Componente para ingresar los nombres de los jugadores -->
       <div>
-        <input  class="form-control" placeholder="Nombre del Jugador 1" :disabled="nombresBloqueados">
-        <input  class="form-control" placeholder="Nombre del Jugador 2" :disabled="nombresBloqueados">
+		<Nombres/>
       </div>
-
-      <button @click="bloquearNombres" id="botonAceptar" class="border-4 border-black rounded-xl px-2">Aceptar</button>
-      <button @click="cambiarNombres" id="botonCambiar" class="border-4 border-black rounded-xl px-2" :disabled="juegoIniciado">Cambiar Nombres</button>
 
       <!-- Celdas del juego -->
       <table class="table-auto text-5xl">
